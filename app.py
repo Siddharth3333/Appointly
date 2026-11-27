@@ -17,6 +17,10 @@ for _p in ("postgres://", "postgresql://", "postgresql+psycopg://"):
     if db_url.startswith(_p):
         db_url = "postgresql+psycopg2://" + db_url[len(_p):]
         break
+for _p in ("postgres://", "postgresql://", "postgresql+psycopg://"):
+    if db_url.startswith(_p):
+        db_url = "postgresql+psycopg2://" + db_url[len(_p):]
+        break
 app.config.update(SECRET_KEY=os.getenv("SECRET_KEY", "dev-only"), SQLALCHEMY_DATABASE_URI=db_url,
     SQLALCHEMY_ENGINE_OPTIONS={"pool_pre_ping": True, "pool_recycle": 280},
     SESSION_COOKIE_HTTPONLY=True, SESSION_COOKIE_SAMESITE="Lax",
