@@ -1,0 +1,12 @@
+name: process-reminders
+on:
+  schedule: [{cron: "*/10 * * * *"}]   # GitHub may delay or skip runs; 5-15 min lag is normal
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call reminder endpoint
+        run: |
+          curl -fsS --retry 3 --max-time 90 -X POST "${{ secrets.APP_URL }}/api/cron/reminders" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}"
